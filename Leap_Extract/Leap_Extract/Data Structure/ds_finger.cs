@@ -73,17 +73,17 @@ namespace Leap_Extract.Data_Structure
 
     public void setFingerThumb(decimal[] distalThumbMeasurements, decimal[] intermediateThumbMeasurements, decimal[] proximalThumbMeasurements)
     {
-        fingerParts[0].setMeasurements(distalThumbMeasurements[0], distalThumbMeasurements[1], distalThumbMeasurements[2], distalThumbMeasurements[3], distalThumbMeasurements[4]);
-        fingerParts[1].setMeasurements(intermediateThumbMeasurements[0], intermediateThumbMeasurements[1], intermediateThumbMeasurements[2], intermediateThumbMeasurements[3], intermediateThumbMeasurements[4]);
-        fingerParts[2].setMeasurements(proximalThumbMeasurements[0], proximalThumbMeasurements[1], proximalThumbMeasurements[2], proximalThumbMeasurements[3], proximalThumbMeasurements[4]);
+        fingerParts[0].setMeasurements(distalThumbMeasurements[0], distalThumbMeasurements[1], distalThumbMeasurements[2], distalThumbMeasurements[3]);
+        fingerParts[1].setMeasurements(intermediateThumbMeasurements[0], intermediateThumbMeasurements[1], intermediateThumbMeasurements[2], intermediateThumbMeasurements[3]);
+        fingerParts[2].setMeasurements(proximalThumbMeasurements[0], proximalThumbMeasurements[1], proximalThumbMeasurements[2], proximalThumbMeasurements[3]);
     }
 
     public void setFingerRest(decimal[] distalMeasurements, decimal[] intermediateMeasurements, decimal[] proximalMeasurements, decimal[] metacarpalMeasurements)
     {
-        fingerParts[0].setMeasurements(distalMeasurements[0], distalMeasurements[1], distalMeasurements[2], distalMeasurements[3], distalMeasurements[4]);
-        fingerParts[1].setMeasurements(intermediateMeasurements[0], intermediateMeasurements[1], intermediateMeasurements[2], intermediateMeasurements[3], intermediateMeasurements[4]);
-        fingerParts[2].setMeasurements(proximalMeasurements[0], proximalMeasurements[1], proximalMeasurements[2], proximalMeasurements[3], proximalMeasurements[4]);
-        fingerParts[3].setMeasurements(metacarpalMeasurements[0], metacarpalMeasurements[1], metacarpalMeasurements[2], metacarpalMeasurements[3], metacarpalMeasurements[4]);
+        fingerParts[0].setMeasurements(distalMeasurements[0], distalMeasurements[1], distalMeasurements[2], distalMeasurements[3]);
+        fingerParts[1].setMeasurements(intermediateMeasurements[0], intermediateMeasurements[1], intermediateMeasurements[2], intermediateMeasurements[3]);
+        fingerParts[2].setMeasurements(proximalMeasurements[0], proximalMeasurements[1], proximalMeasurements[2], proximalMeasurements[3]);
+        fingerParts[3].setMeasurements(metacarpalMeasurements[0], metacarpalMeasurements[1], metacarpalMeasurements[2], metacarpalMeasurements[3]);
     }
 
 	

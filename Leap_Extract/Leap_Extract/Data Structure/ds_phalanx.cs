@@ -47,7 +47,7 @@ namespace Leap_Extract.Data_Structure
 		    this.max = 0;
             this.variance = 0;
             this.standardDeviation = 0;
-            this.uniqueID = Guid.NewGuid().ToString();
+            //this.uniqueID = Guid.NewGuid().ToString();
 	    }
 
         public void UpdateMeasurement(decimal measurement)
@@ -69,20 +69,13 @@ namespace Leap_Extract.Data_Structure
             
             // calculate the normal average
 		    calculateAvg();
-
-            // calculate the variance
-            calculateVariance(measurement);
-
-            // calculate standard deviation
-            calculateStandardDeviation(measurement);
 	    }
 
 
-        public void setMeasurements(decimal setTrimAvg, decimal varianced, decimal standardD, decimal setMin, decimal setMax)
+        public void setMeasurements(decimal setTrimAvg, decimal avg, decimal setMin, decimal setMax)
         {
             this.trimmedAverage = setTrimAvg;
-            this.variance = varianced;
-            this.standardDeviation = standardD;
+            this.avg = avg;
             this.min = setMin;
             this.max = setMax;
         }
@@ -196,8 +189,7 @@ namespace Leap_Extract.Data_Structure
 	    {
             decimal getV = getVariance(); 
             return "TYPE " + prefix + " --> Trimmed Avg: " + String.Format("{0:#,#.#####}",trimmedAverage) + Environment.NewLine +
-                                            "Variance: " + String.Format("{0:#,#.########}", getV) + Environment.NewLine +
-                                            "Standard deviation: " + String.Format("{0:#,#.########}", getStandardDeviation()) + Environment.NewLine +
+                                            "Avg: " + String.Format("{0:#,#.#####}", avg) + Environment.NewLine +
                                             "Min: " + String.Format("{0:#,#.#####}", min) + Environment.NewLine +
                                             "Max: " + String.Format("{0:#,#.#####}", max);		
 	    }	
@@ -212,16 +204,13 @@ namespace Leap_Extract.Data_Structure
            String boneType = "TYPE: " + csvPrefix;
 
            String trimAverage = String.Format("{0:#,#.#####}", getTA);
-           String svariance = String.Format("{0:#,#.########}", getV);
-           String sdeviation = String.Format("{0:#,#.########}", getStandardDeviation());
-
+           String average = String.Format("{0:#,#.#####}", avg);
            String minimum = String.Format("{0:#,#.#####}", min);
            String maximum = String.Format("{0:#,#.#####}", max);
 
            mesg.Add(boneType);
            mesg.Add(trimAverage);
-           mesg.Add(svariance);
-           mesg.Add(sdeviation);
+           mesg.Add(average);
            mesg.Add(minimum);
            mesg.Add(maximum);
 

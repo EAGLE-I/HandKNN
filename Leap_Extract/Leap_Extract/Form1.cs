@@ -38,6 +38,7 @@ namespace Leap_Extract
         private decimal[] ringMeasurements = new decimal[4];
 
         List<person> allPersons = new List<person>();// List to serialize
+        List<person> knnList = new List<person>();
 
         private static readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -123,119 +124,100 @@ namespace Leap_Extract
                         distalThumbMeasurements[1] = Convert.ToDecimal(temp[8]);
                         distalThumbMeasurements[2] = Convert.ToDecimal(temp[9]);
                         distalThumbMeasurements[3] = Convert.ToDecimal(temp[10]);
-                        distalThumbMeasurements[4] = Convert.ToDecimal(temp[11]);
 
-                        intermediateThumbMeasurements[0] = Convert.ToDecimal(temp[13]);
-                        intermediateThumbMeasurements[1] = Convert.ToDecimal(temp[14]);
-                        intermediateThumbMeasurements[2] = Convert.ToDecimal(temp[15]);
-                        intermediateThumbMeasurements[3] = Convert.ToDecimal(temp[16]);
-                        intermediateThumbMeasurements[4] = Convert.ToDecimal(temp[17]);
+                        intermediateThumbMeasurements[0] = Convert.ToDecimal(temp[12]);
+                        intermediateThumbMeasurements[1] = Convert.ToDecimal(temp[13]);
+                        intermediateThumbMeasurements[2] = Convert.ToDecimal(temp[14]);
+                        intermediateThumbMeasurements[3] = Convert.ToDecimal(temp[15]);
 
-                        proximalThumbMeasurements[0] = Convert.ToDecimal(temp[19]);
-                        proximalThumbMeasurements[1] = Convert.ToDecimal(temp[20]);
-                        proximalThumbMeasurements[2] = Convert.ToDecimal(temp[21]);
-                        proximalThumbMeasurements[3] = Convert.ToDecimal(temp[22]);
-                        proximalThumbMeasurements[4] = Convert.ToDecimal(temp[23]);
+                        proximalThumbMeasurements[0] = Convert.ToDecimal(temp[17]);
+                        proximalThumbMeasurements[1] = Convert.ToDecimal(temp[18]);
+                        proximalThumbMeasurements[2] = Convert.ToDecimal(temp[19]);
+                        proximalThumbMeasurements[3] = Convert.ToDecimal(temp[20]);
 
                         //Then the Index
-                        distalIndexMeasurements[0] = Convert.ToDecimal(temp[26]);
-                        distalIndexMeasurements[1] = Convert.ToDecimal(temp[28]);
-                        distalIndexMeasurements[2] = Convert.ToDecimal(temp[29]);
-                        distalIndexMeasurements[3] = Convert.ToDecimal(temp[30]);
-                        distalIndexMeasurements[4] = Convert.ToDecimal(temp[31]);
+                        distalIndexMeasurements[0] = Convert.ToDecimal(temp[23]);
+                        distalIndexMeasurements[1] = Convert.ToDecimal(temp[24]);
+                        distalIndexMeasurements[2] = Convert.ToDecimal(temp[25]);
+                        distalIndexMeasurements[3] = Convert.ToDecimal(temp[26]);
 
-                        intermediateIndexMeasurements[0] = Convert.ToDecimal(temp[32]);
-                        intermediateIndexMeasurements[1] = Convert.ToDecimal(temp[33]);
-                        intermediateIndexMeasurements[2] = Convert.ToDecimal(temp[34]);
-                        intermediateIndexMeasurements[3] = Convert.ToDecimal(temp[35]);
-                        intermediateIndexMeasurements[4] = Convert.ToDecimal(temp[36]);
+                        intermediateIndexMeasurements[0] = Convert.ToDecimal(temp[28]);
+                        intermediateIndexMeasurements[1] = Convert.ToDecimal(temp[29]);
+                        intermediateIndexMeasurements[2] = Convert.ToDecimal(temp[30]);
+                        intermediateIndexMeasurements[3] = Convert.ToDecimal(temp[31]);
 
-                        proximalIndexMeasurements[0] = Convert.ToDecimal(temp[38]);
-                        proximalIndexMeasurements[1] = Convert.ToDecimal(temp[39]);
-                        proximalIndexMeasurements[2] = Convert.ToDecimal(temp[40]);
-                        proximalIndexMeasurements[3] = Convert.ToDecimal(temp[41]);
-                        proximalIndexMeasurements[4] = Convert.ToDecimal(temp[42]);
+                        proximalIndexMeasurements[0] = Convert.ToDecimal(temp[33]);
+                        proximalIndexMeasurements[1] = Convert.ToDecimal(temp[34]);
+                        proximalIndexMeasurements[2] = Convert.ToDecimal(temp[35]);
+                        proximalIndexMeasurements[3] = Convert.ToDecimal(temp[36]);
 
-                        metacarpalIndexMeasurements[0] = Convert.ToDecimal(temp[44]);
-                        metacarpalIndexMeasurements[1] = Convert.ToDecimal(temp[45]);
-                        metacarpalIndexMeasurements[2] = Convert.ToDecimal(temp[46]);
-                        metacarpalIndexMeasurements[3] = Convert.ToDecimal(temp[47]);
-                        metacarpalIndexMeasurements[4] = Convert.ToDecimal(temp[48]);
+                        metacarpalIndexMeasurements[0] = Convert.ToDecimal(temp[38]);
+                        metacarpalIndexMeasurements[1] = Convert.ToDecimal(temp[39]);
+                        metacarpalIndexMeasurements[2] = Convert.ToDecimal(temp[40]);
+                        metacarpalIndexMeasurements[3] = Convert.ToDecimal(temp[41]);
 
                         //Then the Middle
-                        distalMiddleMeasurements[0] = Convert.ToDecimal(temp[51]);
-                        distalMiddleMeasurements[1] = Convert.ToDecimal(temp[52]);
-                        distalMiddleMeasurements[2] = Convert.ToDecimal(temp[53]);
-                        distalMiddleMeasurements[3] = Convert.ToDecimal(temp[54]);
-                        distalMiddleMeasurements[4] = Convert.ToDecimal(temp[55]);
+                        distalMiddleMeasurements[0] = Convert.ToDecimal(temp[44]);
+                        distalMiddleMeasurements[1] = Convert.ToDecimal(temp[45]);
+                        distalMiddleMeasurements[2] = Convert.ToDecimal(temp[46]);
+                        distalMiddleMeasurements[3] = Convert.ToDecimal(temp[47]);
 
-                        intermediateMiddleMeasurements[0] = Convert.ToDecimal(temp[57]);
-                        intermediateMiddleMeasurements[1] = Convert.ToDecimal(temp[58]);
-                        intermediateMiddleMeasurements[2] = Convert.ToDecimal(temp[59]);
-                        intermediateMiddleMeasurements[3] = Convert.ToDecimal(temp[60]);
-                        intermediateMiddleMeasurements[4] = Convert.ToDecimal(temp[61]);
+                        intermediateMiddleMeasurements[0] = Convert.ToDecimal(temp[49]);
+                        intermediateMiddleMeasurements[1] = Convert.ToDecimal(temp[50]);
+                        intermediateMiddleMeasurements[2] = Convert.ToDecimal(temp[51]);
+                        intermediateMiddleMeasurements[3] = Convert.ToDecimal(temp[52]);
 
-                        proximalMiddleMeasurements[0] = Convert.ToDecimal(temp[63]);
-                        proximalMiddleMeasurements[1] = Convert.ToDecimal(temp[64]);
-                        proximalMiddleMeasurements[2] = Convert.ToDecimal(temp[65]);
-                        proximalMiddleMeasurements[3] = Convert.ToDecimal(temp[66]);
-                        proximalMiddleMeasurements[4] = Convert.ToDecimal(temp[67]);
+                        proximalMiddleMeasurements[0] = Convert.ToDecimal(temp[54]);
+                        proximalMiddleMeasurements[1] = Convert.ToDecimal(temp[55]);
+                        proximalMiddleMeasurements[2] = Convert.ToDecimal(temp[56]);
+                        proximalMiddleMeasurements[3] = Convert.ToDecimal(temp[57]);
 
-                        metacarpalMiddleMeasurements[0] = Convert.ToDecimal(temp[69]);
-                        metacarpalMiddleMeasurements[1] = Convert.ToDecimal(temp[70]);
-                        metacarpalMiddleMeasurements[2] = Convert.ToDecimal(temp[71]);
-                        metacarpalMiddleMeasurements[3] = Convert.ToDecimal(temp[72]);
-                        metacarpalMiddleMeasurements[4] = Convert.ToDecimal(temp[73]);
+                        metacarpalMiddleMeasurements[0] = Convert.ToDecimal(temp[59]);
+                        metacarpalMiddleMeasurements[1] = Convert.ToDecimal(temp[60]);
+                        metacarpalMiddleMeasurements[2] = Convert.ToDecimal(temp[61]);
+                        metacarpalMiddleMeasurements[3] = Convert.ToDecimal(temp[62]);
 
                         // Then the Ring
-                        distalRingMeasurements[0] = Convert.ToDecimal(temp[76]);
-                        distalRingMeasurements[1] = Convert.ToDecimal(temp[77]);
-                        distalRingMeasurements[2] = Convert.ToDecimal(temp[78]);
-                        distalRingMeasurements[3] = Convert.ToDecimal(temp[79]);
-                        distalRingMeasurements[4] = Convert.ToDecimal(temp[80]);
+                        distalRingMeasurements[0] = Convert.ToDecimal(temp[65]);
+                        distalRingMeasurements[1] = Convert.ToDecimal(temp[66]);
+                        distalRingMeasurements[2] = Convert.ToDecimal(temp[67]);
+                        distalRingMeasurements[3] = Convert.ToDecimal(temp[68]);
 
-                        intermediateRingMeasurements[0] = Convert.ToDecimal(temp[82]);
-                        intermediateRingMeasurements[1] = Convert.ToDecimal(temp[83]);
-                        intermediateRingMeasurements[2] = Convert.ToDecimal(temp[84]);
-                        intermediateRingMeasurements[3] = Convert.ToDecimal(temp[85]);
-                        intermediateRingMeasurements[4] = Convert.ToDecimal(temp[86]);
+                        intermediateRingMeasurements[0] = Convert.ToDecimal(temp[70]);
+                        intermediateRingMeasurements[1] = Convert.ToDecimal(temp[71]);
+                        intermediateRingMeasurements[2] = Convert.ToDecimal(temp[72]);
+                        intermediateRingMeasurements[3] = Convert.ToDecimal(temp[73]);
 
-                        proximalRingMeasurements[0] = Convert.ToDecimal(temp[88]);
-                        proximalRingMeasurements[1] = Convert.ToDecimal(temp[89]);
-                        proximalRingMeasurements[2] = Convert.ToDecimal(temp[90]);
-                        proximalRingMeasurements[3] = Convert.ToDecimal(temp[91]);
-                        proximalRingMeasurements[4] = Convert.ToDecimal(temp[92]);
+                        proximalRingMeasurements[0] = Convert.ToDecimal(temp[75]);
+                        proximalRingMeasurements[1] = Convert.ToDecimal(temp[76]);
+                        proximalRingMeasurements[2] = Convert.ToDecimal(temp[77]);
+                        proximalRingMeasurements[3] = Convert.ToDecimal(temp[78]);
 
-                        metacarpalRingMeasurements[0] = Convert.ToDecimal(temp[94]);
-                        metacarpalRingMeasurements[1] = Convert.ToDecimal(temp[95]);
-                        metacarpalRingMeasurements[2] = Convert.ToDecimal(temp[96]);
-                        metacarpalRingMeasurements[3] = Convert.ToDecimal(temp[97]);
-                        metacarpalRingMeasurements[4] = Convert.ToDecimal(temp[98]);
+                        metacarpalRingMeasurements[0] = Convert.ToDecimal(temp[80]);
+                        metacarpalRingMeasurements[1] = Convert.ToDecimal(temp[81]);
+                        metacarpalRingMeasurements[2] = Convert.ToDecimal(temp[82]);
+                        metacarpalRingMeasurements[3] = Convert.ToDecimal(temp[83]);
 
                         // Then the pinky
-                        distalPinkyMeasurements[0] = Convert.ToDecimal(temp[101]);
-                        distalPinkyMeasurements[1] = Convert.ToDecimal(temp[102]);
-                        distalPinkyMeasurements[2] = Convert.ToDecimal(temp[103]);
-                        distalPinkyMeasurements[3] = Convert.ToDecimal(temp[104]);
-                        distalPinkyMeasurements[4] = Convert.ToDecimal(temp[105]);
+                        distalPinkyMeasurements[0] = Convert.ToDecimal(temp[86]);
+                        distalPinkyMeasurements[1] = Convert.ToDecimal(temp[87]);
+                        distalPinkyMeasurements[2] = Convert.ToDecimal(temp[88]);
+                        distalPinkyMeasurements[3] = Convert.ToDecimal(temp[89]);
 
-                        intermediatePinkyMeasurements[0] = Convert.ToDecimal(temp[107]);
-                        intermediatePinkyMeasurements[1] = Convert.ToDecimal(temp[108]);
-                        intermediatePinkyMeasurements[2] = Convert.ToDecimal(temp[109]);
-                        intermediatePinkyMeasurements[3] = Convert.ToDecimal(temp[110]);
-                        intermediatePinkyMeasurements[4] = Convert.ToDecimal(temp[111]);
+                        intermediatePinkyMeasurements[0] = Convert.ToDecimal(temp[91]);
+                        intermediatePinkyMeasurements[1] = Convert.ToDecimal(temp[92]);
+                        intermediatePinkyMeasurements[2] = Convert.ToDecimal(temp[93]);
+                        intermediatePinkyMeasurements[3] = Convert.ToDecimal(temp[94]);
 
-                        proximalPinkyMeasurements[0] = Convert.ToDecimal(temp[113]);
-                        proximalPinkyMeasurements[1] = Convert.ToDecimal(temp[114]);
-                        proximalPinkyMeasurements[2] = Convert.ToDecimal(temp[115]);
-                        proximalPinkyMeasurements[3] = Convert.ToDecimal(temp[116]);
-                        proximalPinkyMeasurements[4] = Convert.ToDecimal(temp[117]);
+                        proximalPinkyMeasurements[0] = Convert.ToDecimal(temp[96]);
+                        proximalPinkyMeasurements[1] = Convert.ToDecimal(temp[97]);
+                        proximalPinkyMeasurements[2] = Convert.ToDecimal(temp[98]);
+                        proximalPinkyMeasurements[3] = Convert.ToDecimal(temp[99]);
 
-                        metacarpalPinkyMeasurements[0] = Convert.ToDecimal(temp[119]);
-                        metacarpalPinkyMeasurements[1] = Convert.ToDecimal(temp[120]);
-                        metacarpalPinkyMeasurements[2] = Convert.ToDecimal(temp[121]);
-                        metacarpalPinkyMeasurements[3] = Convert.ToDecimal(temp[122]);
-                        metacarpalPinkyMeasurements[4] = Convert.ToDecimal(temp[123]);
+                        metacarpalPinkyMeasurements[0] = Convert.ToDecimal(temp[101]);
+                        metacarpalPinkyMeasurements[1] = Convert.ToDecimal(temp[102]);
+                        metacarpalPinkyMeasurements[2] = Convert.ToDecimal(temp[103]);
+                        metacarpalPinkyMeasurements[3] = Convert.ToDecimal(temp[104]);
                     }
                     catch (Exception) { }
 
@@ -788,7 +770,9 @@ namespace Leap_Extract
 
             singlePerson.leftHand.UpdateHandMeasurements(singleThumbMeasurements, singleIndexMeasurements, singleMiddleMeasurements, singleRingMeasurements, singlePinkyMeasurements);
         }
+
         int scanCount2;
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             long startTime2 = CurrentTimeMillis();
@@ -815,7 +799,14 @@ namespace Leap_Extract
                     getFrameSinglePerson();
                     try
                     {
-                        scanHand = new K_NN(allPersons, singlePerson);
+                        scanHand = new K_NN();
+                        knnList = scanHand.getNearestNeighbors(singlePerson, allPersons);
+                        
+                        txtDisplay.Clear();
+                        txtDisplay.AppendText(knnList[0].getName());
+                        txtDisplay.AppendText(knnList[1].getName());
+                        txtDisplay.AppendText(knnList[2].getName());
+
                     }
                     catch (Exception h) { Console.WriteLine(h.ToString()); }
 

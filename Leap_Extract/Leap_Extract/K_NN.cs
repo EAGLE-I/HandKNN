@@ -15,6 +15,11 @@ namespace Leap_Extract
         person thisPerson;
         int thisPersonIndex;
 
+        public K_NN()
+        {
+
+        }
+
         public K_NN (List<person> listIn, person tmpPerson)
         {
             this.allPersons = listIn;
@@ -42,16 +47,11 @@ namespace Leap_Extract
 
         public void comparePersons()
         {
-            decimal difference = 0;
-
-            foreach (person listPerson in allPersons)
-            {
-                
-            }
+            
 
         }
 
-        public List<person> getNearestNeighbors(person thisPerson, LinkedList<person> listIn)
+        public List<person> getNearestNeighbors(person thisPerson, List<person> listIn)
         {
             List<person> outList = new List<person>();
 
@@ -110,30 +110,30 @@ namespace Leap_Extract
                     pinky_metacarpal_phalanxes.Add(p.leftHand.getPinky().getFingerParts()[3]);
                 }
 
-                int indx_thumb_distal_phalanxes;
-                int indx_thumb_intermediate_phalanxes;
-                int indx_thumb_proximal_phalanxes;
-                int indx_thumb_metacarpal_phalanxes;
+                int indx_thumb_distal_phalanxes = 0;
+                int indx_thumb_intermediate_phalanxes = 0;
+                int indx_thumb_proximal_phalanxes = 0;
+                int indx_thumb_metacarpal_phalanxes = 0;
 
-                int indx_index_distal_phalanxes;
-                int indx_index_intermediate_phalanxes;
-                int indx_index_proximal_phalanxes;
-                int indx_index_metacarpal_phalanxes;
+                int indx_index_distal_phalanxes = 0;
+                int indx_index_intermediate_phalanxes = 0;
+                int indx_index_proximal_phalanxes = 0;
+                int indx_index_metacarpal_phalanxes = 0;
 
-                int indx_middle_distal_phalanxes;
-                int indx_middle_intermediate_phalanxes;
-                int indx_middle_proximal_phalanxes;
-                int indx_middle_metacarpal_phalanxes;
+                int indx_middle_distal_phalanxes = 0;
+                int indx_middle_intermediate_phalanxes = 0;
+                int indx_middle_proximal_phalanxes = 0;
+                int indx_middle_metacarpal_phalanxes = 0;
 
-                int indx_pinky_distal_phalanxes;
-                int indx_pinky_intermediate_phalanxes;
-                int indx_pinky_proximal_phalanxes;
-                int indx_pinky_metacarpal_phalanxes;
+                int indx_pinky_distal_phalanxes = 0;
+                int indx_pinky_intermediate_phalanxes = 0;
+                int indx_pinky_proximal_phalanxes = 0;
+                int indx_pinky_metacarpal_phalanxes = 0;
 
-                int indx_ring_distal_phalanxes;
-                int indx_ring_intermediate_phalanxes;
-                int indx_ring_proximal_phalanxes;
-                int indx_ring_metacarpal_phalanxes;
+                int indx_ring_distal_phalanxes = 0;
+                int indx_ring_intermediate_phalanxes = 0;
+                int indx_ring_proximal_phalanxes = 0;
+                int indx_ring_metacarpal_phalanxes = 0;
 
             //-------thumb
                 thumb_distal_phalanxes = thumb_distal_phalanxes.OrderBy(o => o.trimmedAverage).ToList();
@@ -245,10 +245,14 @@ namespace Leap_Extract
                         indx_pinky_metacarpal_phalanxes = pinky_metacarpal_phalanxes.IndexOf(ph);
 
             //implement scoring
+            // 1. THUMB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+            // 1.1. Distal
+
+            decimal difTop, difBot;
+
             try
             {
-                decimal difTop, difBot; 
-
                 difTop = Math.Abs(thisPerson.leftHand.getThumb().getFingerParts()[0].getTrimmedAverage() - thumb_distal_phalanxes.ElementAt(indx_thumb_distal_phalanxes + 1).getTrimmedAverage());
                 difBot = Math.Abs(thisPerson.leftHand.getThumb().getFingerParts()[0].getTrimmedAverage() - thumb_distal_phalanxes.ElementAt(indx_thumb_distal_phalanxes - 1).getTrimmedAverage());
                 if(difTop >= difBot)
@@ -256,37 +260,245 @@ namespace Leap_Extract
                 else
                     thumb_distal_phalanxes.ElementAt(indx_thumb_distal_phalanxes + 1).owner.knn_score++;
             }
-            catch(Exception ex) {}
-                 
-                 thumb_intermediate_phalanxes = new 
-                 thumb_proximal_phalanxes = new 
-                 thumb_metacarpal_phalanxes = new 
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-                 index_distal_phalanxes = new 
-                 index_intermediate_phalanxes = new 
-                 index_proximal_phalanxes = new 
-                 index_metacarpal_phalanxes = new 
+            // 1.2. Intermediate
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getThumb().getFingerParts()[1].getTrimmedAverage() - thumb_intermediate_phalanxes.ElementAt(indx_thumb_intermediate_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getThumb().getFingerParts()[1].getTrimmedAverage() - thumb_intermediate_phalanxes.ElementAt(indx_thumb_intermediate_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    thumb_intermediate_phalanxes.ElementAt(indx_thumb_intermediate_phalanxes - 1).owner.knn_score++;
+                else
+                    thumb_intermediate_phalanxes.ElementAt(indx_thumb_intermediate_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-                 middle_distal_phalanxes = new 
-                 middle_intermediate_phalanxes = new 
-                 middle_proximal_phalanxes = new 
-                 middle_metacarpal_phalanxes = new 
+            // 1.3. Proximal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getThumb().getFingerParts()[2].getTrimmedAverage() - thumb_proximal_phalanxes.ElementAt(indx_thumb_proximal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getThumb().getFingerParts()[2].getTrimmedAverage() - thumb_proximal_phalanxes.ElementAt(indx_thumb_proximal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    thumb_proximal_phalanxes.ElementAt(indx_thumb_proximal_phalanxes - 1).owner.knn_score++;
+                else
+                    thumb_proximal_phalanxes.ElementAt(indx_thumb_proximal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-                 ring_distal_phalanxes = new 
-                 ring_intermediate_phalanxes = new 
-                 ring_proximal_phalanxes = new 
-                 ring_metacarpal_phalanxes = new 
+            // 2. INDEX $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            // 2.1. Distal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[0].getTrimmedAverage() - index_distal_phalanxes.ElementAt(indx_index_distal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[0].getTrimmedAverage() - index_distal_phalanxes.ElementAt(indx_index_distal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    index_distal_phalanxes.ElementAt(indx_index_distal_phalanxes - 1).owner.knn_score++;
+                else
+                    index_distal_phalanxes.ElementAt(indx_index_distal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-                 pinky_distal_phalanxes = new 
-                 pinky_intermediate_phalanxes = new 
-                 pinky_proximal_phalanxes = new 
-                 pinky_metacarpal_phalanxes = new 
+            // 2.2. Intermediate
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[1].getTrimmedAverage() - index_intermediate_phalanxes.ElementAt(indx_index_intermediate_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[1].getTrimmedAverage() - index_intermediate_phalanxes.ElementAt(indx_index_intermediate_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    index_intermediate_phalanxes.ElementAt(indx_index_intermediate_phalanxes - 1).owner.knn_score++;
+                else
+                    index_intermediate_phalanxes.ElementAt(indx_index_intermediate_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-             }
-                string thisPersonName = thisPerson.getUserName();
 
-                         
+            // 2.3. Proximal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[2].getTrimmedAverage() - index_proximal_phalanxes.ElementAt(indx_index_proximal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[2].getTrimmedAverage() - index_proximal_phalanxes.ElementAt(indx_index_proximal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    index_proximal_phalanxes.ElementAt(indx_index_proximal_phalanxes - 1).owner.knn_score++;
+                else
+                    index_proximal_phalanxes.ElementAt(indx_index_proximal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
+            // 2.4. Metacarpal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[3].getTrimmedAverage() - index_metacarpal_phalanxes.ElementAt(indx_index_metacarpal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getIndex().getFingerParts()[3].getTrimmedAverage() - index_metacarpal_phalanxes.ElementAt(indx_index_metacarpal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    index_metacarpal_phalanxes.ElementAt(indx_index_metacarpal_phalanxes - 1).owner.knn_score++;
+                else
+                    index_metacarpal_phalanxes.ElementAt(indx_index_metacarpal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+            // 3. MIDDLE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            // 3.1. Distal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[0].getTrimmedAverage() - middle_distal_phalanxes.ElementAt(indx_middle_distal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[0].getTrimmedAverage() - middle_distal_phalanxes.ElementAt(indx_middle_distal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    middle_distal_phalanxes.ElementAt(indx_middle_distal_phalanxes - 1).owner.knn_score++;
+                else
+                    middle_distal_phalanxes.ElementAt(indx_middle_distal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 3.2. Intermediate
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[1].getTrimmedAverage() - middle_intermediate_phalanxes.ElementAt(indx_middle_intermediate_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[1].getTrimmedAverage() - middle_intermediate_phalanxes.ElementAt(indx_middle_intermediate_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    middle_intermediate_phalanxes.ElementAt(indx_middle_intermediate_phalanxes - 1).owner.knn_score++;
+                else
+                    middle_intermediate_phalanxes.ElementAt(indx_middle_intermediate_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 3.3. Proximal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[2].getTrimmedAverage() - middle_proximal_phalanxes.ElementAt(indx_middle_proximal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[2].getTrimmedAverage() - middle_proximal_phalanxes.ElementAt(indx_middle_proximal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    middle_proximal_phalanxes.ElementAt(indx_middle_proximal_phalanxes - 1).owner.knn_score++;
+                else
+                    middle_proximal_phalanxes.ElementAt(indx_middle_proximal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 3.4. Metacarpal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[3].getTrimmedAverage() - middle_metacarpal_phalanxes.ElementAt(indx_middle_metacarpal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getMiddle().getFingerParts()[3].getTrimmedAverage() - middle_metacarpal_phalanxes.ElementAt(indx_middle_metacarpal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    middle_metacarpal_phalanxes.ElementAt(indx_middle_metacarpal_phalanxes - 1).owner.knn_score++;
+                else
+                    middle_metacarpal_phalanxes.ElementAt(indx_middle_metacarpal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 4. RING $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            // 4.1. Distal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[0].getTrimmedAverage() - ring_distal_phalanxes.ElementAt(indx_ring_distal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[0].getTrimmedAverage() - ring_distal_phalanxes.ElementAt(indx_ring_distal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    ring_distal_phalanxes.ElementAt(indx_ring_distal_phalanxes - 1).owner.knn_score++;
+                else
+                    ring_distal_phalanxes.ElementAt(indx_ring_distal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 4.2. Intermediate
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[1].getTrimmedAverage() - ring_intermediate_phalanxes.ElementAt(indx_ring_intermediate_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[1].getTrimmedAverage() - ring_intermediate_phalanxes.ElementAt(indx_ring_intermediate_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    ring_intermediate_phalanxes.ElementAt(indx_ring_intermediate_phalanxes - 1).owner.knn_score++;
+                else
+                    ring_intermediate_phalanxes.ElementAt(indx_ring_intermediate_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 4.3. Proximal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[2].getTrimmedAverage() - ring_proximal_phalanxes.ElementAt(indx_ring_proximal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[2].getTrimmedAverage() - ring_proximal_phalanxes.ElementAt(indx_ring_proximal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    ring_proximal_phalanxes.ElementAt(indx_ring_proximal_phalanxes - 1).owner.knn_score++;
+                else
+                    ring_proximal_phalanxes.ElementAt(indx_ring_proximal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 4.4. Metacarpal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[3].getTrimmedAverage() - ring_metacarpal_phalanxes.ElementAt(indx_ring_metacarpal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getRing().getFingerParts()[3].getTrimmedAverage() - ring_metacarpal_phalanxes.ElementAt(indx_ring_metacarpal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    ring_metacarpal_phalanxes.ElementAt(indx_ring_metacarpal_phalanxes - 1).owner.knn_score++;
+                else
+                    ring_metacarpal_phalanxes.ElementAt(indx_ring_metacarpal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 5. PINKY $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            // 5.1. Distal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[0].getTrimmedAverage() - pinky_distal_phalanxes.ElementAt(indx_pinky_distal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[0].getTrimmedAverage() - pinky_distal_phalanxes.ElementAt(indx_pinky_distal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    pinky_distal_phalanxes.ElementAt(indx_pinky_distal_phalanxes - 1).owner.knn_score++;
+                else
+                    pinky_distal_phalanxes.ElementAt(indx_pinky_distal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 5.2. Intermediate
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[1].getTrimmedAverage() - pinky_intermediate_phalanxes.ElementAt(indx_pinky_intermediate_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[1].getTrimmedAverage() - pinky_intermediate_phalanxes.ElementAt(indx_pinky_intermediate_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    pinky_intermediate_phalanxes.ElementAt(indx_pinky_intermediate_phalanxes - 1).owner.knn_score++;
+                else
+                    pinky_intermediate_phalanxes.ElementAt(indx_pinky_intermediate_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+            // 5.3. Proximal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[2].getTrimmedAverage() - pinky_proximal_phalanxes.ElementAt(indx_pinky_proximal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[2].getTrimmedAverage() - pinky_proximal_phalanxes.ElementAt(indx_pinky_proximal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    pinky_proximal_phalanxes.ElementAt(indx_pinky_proximal_phalanxes - 1).owner.knn_score++;
+                else
+                    pinky_proximal_phalanxes.ElementAt(indx_pinky_proximal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+
+            // 5.4. Metacarpal
+            try
+            {
+                difTop = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[3].getTrimmedAverage() - pinky_metacarpal_phalanxes.ElementAt(indx_pinky_metacarpal_phalanxes + 1).getTrimmedAverage());
+                difBot = Math.Abs(thisPerson.leftHand.getPinky().getFingerParts()[3].getTrimmedAverage() - pinky_metacarpal_phalanxes.ElementAt(indx_pinky_metacarpal_phalanxes - 1).getTrimmedAverage());
+                if (difTop >= difBot)
+                    pinky_metacarpal_phalanxes.ElementAt(indx_pinky_metacarpal_phalanxes - 1).owner.knn_score++;
+                else
+                    pinky_metacarpal_phalanxes.ElementAt(indx_pinky_metacarpal_phalanxes + 1).owner.knn_score++;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+             
+                //string thisPersonName = thisPerson.getUserName();
+
+            outList = listIn.OrderBy(o => o.knn_score).ToList();             
             return outList;
         }
 
