@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Diagnostics;
 using System.Runtime.Serialization.Formatters.Binary;
 using Leap;
@@ -24,6 +25,8 @@ namespace Leap_Extract
     public partial class frmControl : Form, ILeapEventDelegate
     {
 
+        
+
         List<string> users = new List<string>();
 
         TextWriter myWriter;
@@ -39,6 +42,8 @@ namespace Leap_Extract
         private decimal[] middleMeasurements = new decimal[4];
         private decimal[] ringMeasurements = new decimal[4];
 
+        
+
         List<person> allPersons = new List<person>();// List to serialize
         List<person> knnList = new List<person>();
 
@@ -50,9 +55,25 @@ namespace Leap_Extract
         public List<person> getPersonList()
         {
             return allPersons;
+            
         }
 
-        
+        public frmControl()
+        {
+            InitializeComponent();
+
+            readCSV();
+
+            foreach (string s in users)
+            {
+                cmb_users.Items.Add(s);
+                cmbTwo.Items.Add(s);
+            }
+                
+
+
+        }
+
        public void readCSV()
         {
             
@@ -242,15 +263,7 @@ namespace Leap_Extract
 
         } 
         
-        public frmControl()
-        {
-            InitializeComponent();
-
-            readCSV();
-
-            foreach (string s in users)
-                cmb_users.Items.Add(s);
-        }
+        
 
         delegate void LeapEventDelegate(string EventName);
 
@@ -801,14 +814,18 @@ namespace Leap_Extract
             {
                 tmpPerson.leftHand.UpdateHandMeasurements(singleThumbMeasurements, singleIndexMeasurements, singleMiddleMeasurements, singleRing2Measurements, singlePinkyMeasurements);
             }
-                }
-            return tmpPerson; 
         }
+            return tmpPerson; 
+     }
 
         int scanCount2;
 
+
+        
+       
         private void button1_Click_1(object sender, EventArgs e)
         {
+
             long startTime2 = CurrentTimeMillis();
             long timeElapsed2;
             bool flag4 = true;
@@ -818,30 +835,27 @@ namespace Leap_Extract
             long lastScan = CurrentTimeMillis();
 
             K_NN scanHand;
+            
             txtDisplay.Clear();
-            int chancesLeft = 4;
+            txtDisplay.Update();
+            txtDisplay2.Clear();
             txtDisplay.AppendText("Present Hand");
 
             while (flag4)
             {
-                timeElapsed2 = CurrentTimeMillis() - startTime2;   
+                timeElapsed2 = CurrentTimeMillis() - startTime2;
 
                 if (timeElapsed2 > 60000)
                 {
-
-                    MessageBox.Show("Fineshed the real time scan. Number of scans in 1 minute: " + scanCount2);
+                    MessageBox.Show("Finished the real time scan. Number of scans in 1 minute: " + scanCount2);
                     flag4 = false;
-
                 }
                 else
                 {
-                    
-   
                     scanHand = new K_NN();
                     person newPerson = getShortScan();
 
                     knnList = scanHand.getNearestNeighbors(newPerson, allPersons);
-
 
                     if(CurrentTimeMillis() - lastScan > 200)
                     {
@@ -851,22 +865,24 @@ namespace Leap_Extract
                         if (chancesLeft < 0)
                             flag4 = false;
                         MessageBox.Show("No chances left.");*/
-
-
                     }
-
+                    
+                    if (CurrentTimeMillis() - lastScan > 2000 )
+                    {
+                        txtDisplay.Clear();
+                        flag4 = false;
+                        MessageBox.Show("Real time scan timed out. Try again.");
+                    }
                     
                     lastScan = CurrentTimeMillis();
                     guessCount++;
-                        
-                        
 
-                        txtDisplay.AppendText("Guess number: " + Convert.ToString(guessCount) + Environment.NewLine);
-                        txtDisplay.AppendText("Best Guess is: " + knnList[0].getName() + Environment.NewLine);
-                       /* txtDisplay.AppendText("The Second Nearest Neighbour is: " + knnList[1].getName() + Environment.NewLine);
-                        txtDisplay.AppendText("The Third Nearest Neighbour is: " + knnList[2].getName() + Environment.NewLine + Environment.NewLine);*/
-                        txtDisplay.AppendText("Rankings:" + Environment.NewLine + scanHand.getMessage());
-                    Thread.Sleep(50);
+                    txtDisplay.AppendText("Guess number: " + Convert.ToString(guessCount) + Environment.NewLine);
+                    txtDisplay.AppendText("Best Guess is: " + knnList[0].getName() + Environment.NewLine);
+                    /* txtDisplay.AppendText("The Second Nearest Neighbour is: " + knnList[1].getName() + Environment.NewLine);
+                      txtDisplay.AppendText("The Third Nearest Neighbour is: " + knnList[2].getName() + Environment.NewLine + Environment.NewLine);*/
+                    txtDisplay.AppendText("Rankings:" + Environment.NewLine + scanHand.getMessage());
+                    Thread.Sleep(100);
                     txtDisplay.Clear();
                   
                 }
@@ -908,6 +924,38 @@ namespace Leap_Extract
                     Console.WriteLine(t.ToString());
                 }
         }
+
+        private void cmbTwo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string name = cmbTwo.SelectedItem.ToString();
+            if (name == "")
+            {
+                txtDisplay2.Clear();
+            }
+            else try
+                {
+
+                    foreach (person personItem in allPersons)
+                    {
+                        if (personItem.getName() == name)
+                        {
+                            txtDisplay2.AppendText("Name: " + name + Environment.NewLine);
+                            txtDisplay2.AppendText("Username: " + personItem.getUserName() + Environment.NewLine);
+                            txtDisplay2.AppendText("Age: " + Convert.ToString(personItem.getAge()) + Environment.NewLine);
+                            txtDisplay2.AppendText("Gender: " + Convert.ToString(personItem.getGender()) + Environment.NewLine + Environment.NewLine);
+
+                            txtDisplay2.AppendText("Measurements: " + Environment.NewLine + personItem.leftHand.myToString() + Environment.NewLine);
+                            break;
+                        }
+                    }
+                }
+                catch (Exception t)
+                {
+                    Console.WriteLine(t.ToString());
+                }
+        }
+
+       
 
  }
 

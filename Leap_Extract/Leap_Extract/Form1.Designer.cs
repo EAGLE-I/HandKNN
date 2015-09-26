@@ -32,7 +32,7 @@
             this.cmb_users = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtDisplay2 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbTwo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -46,7 +46,7 @@
             this.panel1.Controls.Add(this.txtDisplay);
             this.panel1.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(18, 105);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(599, 326);
             this.panel1.TabIndex = 7;
@@ -55,7 +55,7 @@
             // 
             this.txtDisplay.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.txtDisplay.Location = new System.Drawing.Point(18, 17);
-            this.txtDisplay.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtDisplay.Margin = new System.Windows.Forms.Padding(5);
             this.txtDisplay.Multiline = true;
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -78,10 +78,10 @@
             // btnCreateUser
             // 
             this.btnCreateUser.Font = new System.Drawing.Font("Georgia", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreateUser.Location = new System.Drawing.Point(16, 447);
-            this.btnCreateUser.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnCreateUser.Location = new System.Drawing.Point(15, 439);
+            this.btnCreateUser.Margin = new System.Windows.Forms.Padding(5);
             this.btnCreateUser.Name = "btnCreateUser";
-            this.btnCreateUser.Size = new System.Drawing.Size(150, 69);
+            this.btnCreateUser.Size = new System.Drawing.Size(269, 57);
             this.btnCreateUser.TabIndex = 8;
             this.btnCreateUser.Text = "Create new user";
             this.btnCreateUser.UseVisualStyleBackColor = true;
@@ -90,10 +90,10 @@
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Georgia", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(15, 526);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnExit.Location = new System.Drawing.Point(1182, 20);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(5);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(307, 54);
+            this.btnExit.Size = new System.Drawing.Size(60, 34);
             this.btnExit.TabIndex = 10;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -103,7 +103,7 @@
             // 
             this.txtName.Font = new System.Drawing.Font("Georgia", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(459, 57);
-            this.txtName.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtName.Margin = new System.Windows.Forms.Padding(5);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(28, 29);
             this.txtName.TabIndex = 17;
@@ -118,7 +118,7 @@
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.Blue;
             this.progressBar1.Location = new System.Drawing.Point(15, 589);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Maximum = 200;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(1238, 60);
@@ -128,10 +128,10 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Georgia", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(174, 446);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(15, 505);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 70);
+            this.button1.Size = new System.Drawing.Size(269, 58);
             this.button1.TabIndex = 21;
             this.button1.Text = "Real time scan";
             this.button1.UseVisualStyleBackColor = true;
@@ -142,8 +142,8 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(1005, 446);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Location = new System.Drawing.Point(994, 440);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(248, 133);
             this.pictureBox1.TabIndex = 22;
@@ -151,9 +151,12 @@
             // 
             // cmb_users
             // 
+            this.cmb_users.DropDownHeight = 100;
+            this.cmb_users.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_users.FormattingEnabled = true;
+            this.cmb_users.IntegralHeight = false;
             this.cmb_users.Location = new System.Drawing.Point(21, 55);
-            this.cmb_users.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmb_users.Margin = new System.Windows.Forms.Padding(4);
             this.cmb_users.MaxDropDownItems = 5;
             this.cmb_users.Name = "cmb_users";
             this.cmb_users.Size = new System.Drawing.Size(388, 31);
@@ -168,7 +171,7 @@
             this.panel2.Controls.Add(this.txtDisplay2);
             this.panel2.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(643, 105);
-            this.panel2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(599, 326);
             this.panel2.TabIndex = 19;
@@ -177,22 +180,26 @@
             // 
             this.txtDisplay2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.txtDisplay2.Location = new System.Drawing.Point(18, 17);
-            this.txtDisplay2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtDisplay2.Margin = new System.Windows.Forms.Padding(5);
             this.txtDisplay2.Multiline = true;
             this.txtDisplay2.Name = "txtDisplay2";
             this.txtDisplay2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDisplay2.Size = new System.Drawing.Size(558, 288);
             this.txtDisplay2.TabIndex = 18;
             // 
-            // comboBox1
+            // cmbTwo
             // 
-            this.comboBox1.DropDownWidth = 388;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(643, 55);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(388, 31);
-            this.comboBox1.TabIndex = 23;
+            this.cmbTwo.DropDownHeight = 100;
+            this.cmbTwo.DropDownWidth = 388;
+            this.cmbTwo.FormattingEnabled = true;
+            this.cmbTwo.IntegralHeight = false;
+            this.cmbTwo.Location = new System.Drawing.Point(643, 55);
+            this.cmbTwo.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbTwo.MaxDropDownItems = 5;
+            this.cmbTwo.Name = "cmbTwo";
+            this.cmbTwo.Size = new System.Drawing.Size(388, 31);
+            this.cmbTwo.TabIndex = 23;
+            this.cmbTwo.SelectedIndexChanged += new System.EventHandler(this.cmbTwo_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -216,7 +223,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1267, 664);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbTwo);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.cmb_users);
             this.Controls.Add(this.pictureBox1);
@@ -228,7 +235,7 @@
             this.Controls.Add(this.btnCreateUser);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Georgia", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Leap Reader";
@@ -258,7 +265,7 @@
         private System.Windows.Forms.ComboBox cmb_users;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtDisplay2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbTwo;
         private System.Windows.Forms.Label label1;
 
     }
