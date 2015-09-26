@@ -234,13 +234,7 @@ namespace Leap_Extract
                         }
                         catch (Exception) { }   
                     
-                    
-                    try
-                    {
-                        allPersons.Add(personFromCSV);
-
-                    }
-                    catch (Exception) { }
+                     allPersons.Add(personFromCSV);
 
                 }
             }
@@ -821,8 +815,12 @@ namespace Leap_Extract
             scanCount2 = 0;
             int guessCount = 0;
 
+            long lastScan = CurrentTimeMillis();
+
             K_NN scanHand;
             txtDisplay.Clear();
+            int chancesLeft = 4;
+            txtDisplay.AppendText("Present Hand");
 
             while (flag4)
             {
@@ -837,28 +835,48 @@ namespace Leap_Extract
                 }
                 else
                 {
-
+                    
+   
+                    scanHand = new K_NN();
                     person newPerson = getShortScan();
 
-                        guessCount++;
-                        scanHand = new K_NN();
+                    knnList = scanHand.getNearestNeighbors(newPerson, allPersons);
 
-                        knnList = scanHand.getNearestNeighbors(newPerson, allPersons);
+
+                    if(CurrentTimeMillis() - lastScan > 200)
+                    {
+                        guessCount = 0;
+                        txtDisplay.Clear();
+                       /* chancesLeft--;
+                        if (chancesLeft < 0)
+                            flag4 = false;
+                        MessageBox.Show("No chances left.");*/
+
+
+                    }
+
+                    
+                    lastScan = CurrentTimeMillis();
+                    guessCount++;
+                        
+                        
 
                         txtDisplay.AppendText("Guess number: " + Convert.ToString(guessCount) + Environment.NewLine);
-                        txtDisplay.AppendText("The Nearest Neighbour is: " + knnList[0].getName() + Environment.NewLine);
-                        txtDisplay.AppendText("The Second Nearest Neighbour is: " + knnList[1].getName() + Environment.NewLine);
-                        txtDisplay.AppendText("The Third Nearest Neighbour is: " + knnList[2].getName() + Environment.NewLine + Environment.NewLine);
-
-
-                        
-                    Thread.Sleep(1000);
+                        txtDisplay.AppendText("Best Guess is: " + knnList[0].getName() + Environment.NewLine);
+                       /* txtDisplay.AppendText("The Second Nearest Neighbour is: " + knnList[1].getName() + Environment.NewLine);
+                        txtDisplay.AppendText("The Third Nearest Neighbour is: " + knnList[2].getName() + Environment.NewLine + Environment.NewLine);*/
+                        txtDisplay.AppendText("Rankings:" + Environment.NewLine + scanHand.getMessage());
+                    Thread.Sleep(50);
                     txtDisplay.Clear();
-                    txtDisplay.Update();
+                  
                 }
             }
         
         }
+
+  
+
+
 
         private void cmb_users_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -174,7 +174,7 @@ namespace Leap_Extract.Data_Structure
 
        public decimal compareTrimmedAverage(decimal valueToCompare)
        {
-           return Math.Abs(valueToCompare - getTrimmedAverage());
+           return Math.Abs(valueToCompare - trimmedAverage);
        }
 
         public decimal getMin()

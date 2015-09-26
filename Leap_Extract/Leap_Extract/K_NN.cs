@@ -14,6 +14,7 @@ namespace Leap_Extract
     {
         List<person> allPersons = new List<person>();
         person thisPerson;
+        string msg;
         int thisPersonIndex;
 
         public K_NN()
@@ -54,6 +55,9 @@ namespace Leap_Extract
 
         public List<person> getNearestNeighbors(person thisPerson, List<person> listIn)
         {
+
+            //MessageBox.Show(Convert.ToString(listIn[0].leftHand.getThumb().getFingerParts()[1].trimmedAverage)); 
+
             List<ds_phalanx> thumb_distal_phalanxes = new List<ds_phalanx>();
             List<ds_phalanx> thumb_intermediate_phalanxes = new List<ds_phalanx>();
             List<ds_phalanx> thumb_proximal_phalanxes = new List<ds_phalanx>();
@@ -106,52 +110,50 @@ namespace Leap_Extract
                     pinky_proximal_phalanxes.Add(p.leftHand.getPinky().getFingerParts()[2]);
                     pinky_metacarpal_phalanxes.Add(p.leftHand.getPinky().getFingerParts()[3]);
                 }
-       
 
-            //-------thumb
-
-                MessageBox.Show(thisPerson.leftHand.getThumb().getFingerParts()[0].compareTrimmedAverage(thumb_distal_phalanxes[0].getTrimmedAverage()).ToString());
-
-                List<ds_phalanx> sorted_thumb_distal = thumb_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[0].getTrimmedAverage())).ToList();
-            /*
-                foreach (ds_phalanx d in thumb_distal_phalanxes)
-                    Console.WriteLine(d.owner.getName());
-
-                foreach (ds_phalanx d in sorted_thumb_distal)
-                    Console.WriteLine(d.owner.getName());
-            */
-                thumb_intermediate_phalanxes = thumb_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[1].getTrimmedAverage())).ToList();              
-                thumb_proximal_phalanxes = thumb_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[2].getTrimmedAverage())).ToList();
+              //-------thumb
+              /*  MessageBox.Show("THIS PERSON:\t" + thisPerson.leftHand.getThumb().getFingerParts()[0].trimmedAverage + Environment.NewLine + 
+                    thumb_distal_phalanxes[4].owner.getName()+ ":\t" + thumb_distal_phalanxes[0].trimmedAverage+ 
+                    Environment.NewLine + "RESULT\t:" + thisPerson.leftHand.getThumb().getFingerParts()[0].compareTrimmedAverage(thumb_distal_phalanxes[4].trimmedAverage).ToString());
+                */
+                thumb_distal_phalanxes = thumb_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[0].trimmedAverage)).ToList();
+                thumb_intermediate_phalanxes = thumb_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[1].trimmedAverage)).ToList();              
+                thumb_proximal_phalanxes = thumb_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[2].trimmedAverage)).ToList();
               
             //thumb doesnt have metacarpal
 
             //-------index
-                index_distal_phalanxes = index_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[0].getTrimmedAverage())).ToList();
-                index_intermediate_phalanxes = index_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[1].getTrimmedAverage())).ToList();
-                index_proximal_phalanxes = index_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[2].getTrimmedAverage())).ToList();
-                index_metacarpal_phalanxes = index_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[3].getTrimmedAverage())).ToList();
+                index_distal_phalanxes = index_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[0].trimmedAverage)).ToList();
+                index_intermediate_phalanxes = index_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[1].trimmedAverage)).ToList();
+                index_proximal_phalanxes = index_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[2].trimmedAverage)).ToList();
+                index_metacarpal_phalanxes = index_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[3].trimmedAverage)).ToList();
                
             //-------middle
-                middle_distal_phalanxes = middle_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[0].getTrimmedAverage())).ToList(); 
-                middle_intermediate_phalanxes = middle_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[1].getTrimmedAverage())).ToList(); 
-                middle_proximal_phalanxes = middle_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[2].getTrimmedAverage())).ToList(); 
-                middle_metacarpal_phalanxes = middle_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[3].getTrimmedAverage())).ToList(); 
+                middle_distal_phalanxes = middle_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[0].trimmedAverage)).ToList(); 
+                middle_intermediate_phalanxes = middle_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[1].trimmedAverage)).ToList(); 
+                middle_proximal_phalanxes = middle_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[2].trimmedAverage)).ToList(); 
+                middle_metacarpal_phalanxes = middle_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[3].trimmedAverage)).ToList(); 
                
             //-------ring
-                ring_distal_phalanxes = ring_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[0].getTrimmedAverage())).ToList(); 
-                ring_intermediate_phalanxes = ring_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[1].getTrimmedAverage())).ToList();   
-                ring_proximal_phalanxes = ring_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[2].getTrimmedAverage())).ToList(); 
-                ring_metacarpal_phalanxes = ring_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[3].getTrimmedAverage())).ToList();   
+                ring_distal_phalanxes = ring_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[0].trimmedAverage)).ToList(); 
+                ring_intermediate_phalanxes = ring_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[1].trimmedAverage)).ToList();   
+                ring_proximal_phalanxes = ring_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[2].trimmedAverage)).ToList(); 
+                ring_metacarpal_phalanxes = ring_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[3].trimmedAverage)).ToList();   
+            
             //-------pinky
-                pinky_distal_phalanxes = pinky_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[0].getTrimmedAverage())).ToList(); 
-                pinky_intermediate_phalanxes = pinky_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[1].getTrimmedAverage())).ToList();  
-                pinky_proximal_phalanxes = pinky_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[2].getTrimmedAverage())).ToList(); 
-                pinky_metacarpal_phalanxes = pinky_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[3].getTrimmedAverage())).ToList();
-
-
+                pinky_distal_phalanxes = pinky_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[0].trimmedAverage)).ToList(); 
+                pinky_intermediate_phalanxes = pinky_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[1].trimmedAverage)).ToList();  
+                pinky_proximal_phalanxes = pinky_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[2].trimmedAverage)).ToList(); 
+                pinky_metacarpal_phalanxes = pinky_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[3].trimmedAverage)).ToList();
 
             //implement scoring
 
+                /*
+                string msg = "";
+                foreach (ds_phalanx p in thumb_distal_phalanxes)
+                    msg += p.owner.getUserName() + "\t" + p.trimmedAverage + Environment.NewLine;
+
+                MessageBox.Show(msg);*/
 
                 for (int k = 0; k < listIn.Count; k++)
                 {
@@ -183,10 +185,16 @@ namespace Leap_Extract
 
                 List<person> outList = listIn.OrderByDescending(o => o.knn_score).ToList();
 
-                foreach (person p in outList)
-                    Console.WriteLine(p.getName() + "\t" + p.knn_score);
 
-            return outList;
+                for (int k = 0; k < 3; k++)
+                    msg += outList[k].getName() + "\t" + outList[k].knn_score + Environment.NewLine;
+
+                return outList;
+        }
+
+        public string getMessage()
+        {
+            return this.msg;
         }
 
 
