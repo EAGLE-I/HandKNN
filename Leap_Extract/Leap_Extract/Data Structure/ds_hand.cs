@@ -23,6 +23,7 @@ namespace Leap_Extract.Data_Structure
     public class ds_hand
     {
         public person owner;
+        public int numofUpdates = 0;
 	    ds_finger[] fingers;
 	    bool iLeft;
 	
@@ -72,6 +73,8 @@ namespace Leap_Extract.Data_Structure
 		    fingers[2].updateFinger(middleMeasurements);
 		    fingers[3].updateFinger(ringMeasurements);
 		    fingers[4].updateFinger(pinkyMeasurements);
+
+            numofUpdates++;
 	    }
 
         public void SetHandMeasurements(decimal[] distalThumbMeasurements, decimal[] intermediateThumbMeasurements, decimal[] proximalThumbMeasurements, decimal[] distalPinkyMeasurements, decimal[] intermediatePinkyMeasurements,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,8 +54,6 @@ namespace Leap_Extract
 
         public List<person> getNearestNeighbors(person thisPerson, List<person> listIn)
         {
-            List<person> outList = new List<person>();
-
             List<ds_phalanx> thumb_distal_phalanxes = new List<ds_phalanx>();
             List<ds_phalanx> thumb_intermediate_phalanxes = new List<ds_phalanx>();
             List<ds_phalanx> thumb_proximal_phalanxes = new List<ds_phalanx>();
@@ -110,54 +109,83 @@ namespace Leap_Extract
        
 
             //-------thumb
-                thumb_distal_phalanxes = thumb_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[0].getTrimmedAverage())).ToList();
 
+                MessageBox.Show(thisPerson.leftHand.getThumb().getFingerParts()[0].compareTrimmedAverage(thumb_distal_phalanxes[0].getTrimmedAverage()).ToString());
+
+                List<ds_phalanx> sorted_thumb_distal = thumb_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[0].getTrimmedAverage())).ToList();
+            /*
+                foreach (ds_phalanx d in thumb_distal_phalanxes)
+                    Console.WriteLine(d.owner.getName());
+
+                foreach (ds_phalanx d in sorted_thumb_distal)
+                    Console.WriteLine(d.owner.getName());
+            */
                 thumb_intermediate_phalanxes = thumb_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[1].getTrimmedAverage())).ToList();              
-               
                 thumb_proximal_phalanxes = thumb_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getThumb().getFingerParts()[2].getTrimmedAverage())).ToList();
-               
+              
             //thumb doesnt have metacarpal
 
             //-------index
                 index_distal_phalanxes = index_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[0].getTrimmedAverage())).ToList();
-               
                 index_intermediate_phalanxes = index_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[1].getTrimmedAverage())).ToList();
-
                 index_proximal_phalanxes = index_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[2].getTrimmedAverage())).ToList();
-                
                 index_metacarpal_phalanxes = index_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getIndex().getFingerParts()[3].getTrimmedAverage())).ToList();
                
             //-------middle
                 middle_distal_phalanxes = middle_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[0].getTrimmedAverage())).ToList(); 
-              
                 middle_intermediate_phalanxes = middle_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[1].getTrimmedAverage())).ToList(); 
-               
                 middle_proximal_phalanxes = middle_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[2].getTrimmedAverage())).ToList(); 
-                
                 middle_metacarpal_phalanxes = middle_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getMiddle().getFingerParts()[3].getTrimmedAverage())).ToList(); 
                
             //-------ring
                 ring_distal_phalanxes = ring_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[0].getTrimmedAverage())).ToList(); 
-
-                ring_intermediate_phalanxes = ring_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[1].getTrimmedAverage())).ToList(); 
-               
+                ring_intermediate_phalanxes = ring_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[1].getTrimmedAverage())).ToList();   
                 ring_proximal_phalanxes = ring_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[2].getTrimmedAverage())).ToList(); 
-
                 ring_metacarpal_phalanxes = ring_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getRing().getFingerParts()[3].getTrimmedAverage())).ToList();   
             //-------pinky
                 pinky_distal_phalanxes = pinky_distal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[0].getTrimmedAverage())).ToList(); 
-
                 pinky_intermediate_phalanxes = pinky_intermediate_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[1].getTrimmedAverage())).ToList();  
-
                 pinky_proximal_phalanxes = pinky_proximal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[2].getTrimmedAverage())).ToList(); 
-    
-                pinky_metacarpal_phalanxes = pinky_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[3].getTrimmedAverage())).ToList(); 
+                pinky_metacarpal_phalanxes = pinky_metacarpal_phalanxes.OrderBy(o => o.compareTrimmedAverage(thisPerson.leftHand.getPinky().getFingerParts()[3].getTrimmedAverage())).ToList();
+
+
 
             //implement scoring
 
-            
 
-            outList = listIn.OrderBy(o => o.knn_score).ToList();             
+                for (int k = 0; k < listIn.Count; k++)
+                {
+                    int score = listIn.Count - k;
+                    thumb_distal_phalanxes.ElementAt(k).owner.knn_score += score;
+                    thumb_intermediate_phalanxes.ElementAt(k).owner.knn_score += score;
+                    thumb_proximal_phalanxes.ElementAt(k).owner.knn_score += score;
+
+                    index_distal_phalanxes.ElementAt(k).owner.knn_score += score;
+                    index_intermediate_phalanxes.ElementAt(k).owner.knn_score += score;
+                    index_proximal_phalanxes.ElementAt(k).owner.knn_score += score;
+                    index_metacarpal_phalanxes.ElementAt(k).owner.knn_score += score;
+
+                     middle_distal_phalanxes.ElementAt(k).owner.knn_score += score;
+                     middle_intermediate_phalanxes.ElementAt(k).owner.knn_score += score;
+                     middle_proximal_phalanxes.ElementAt(k).owner.knn_score += score;
+                     middle_metacarpal_phalanxes.ElementAt(k).owner.knn_score += score;
+
+                     ring_distal_phalanxes.ElementAt(k).owner.knn_score += score;
+                     ring_intermediate_phalanxes.ElementAt(k).owner.knn_score += score;
+                     ring_proximal_phalanxes.ElementAt(k).owner.knn_score += score;
+                     ring_metacarpal_phalanxes.ElementAt(k).owner.knn_score += score;
+
+                     pinky_distal_phalanxes.ElementAt(k).owner.knn_score += score;
+                     pinky_intermediate_phalanxes.ElementAt(k).owner.knn_score += score;
+                     pinky_proximal_phalanxes.ElementAt(k).owner.knn_score += score;
+                     pinky_metacarpal_phalanxes.ElementAt(k).owner.knn_score += score;
+                }
+
+                List<person> outList = listIn.OrderByDescending(o => o.knn_score).ToList();
+
+                foreach (person p in outList)
+                    Console.WriteLine(p.getName() + "\t" + p.knn_score);
+
             return outList;
         }
 

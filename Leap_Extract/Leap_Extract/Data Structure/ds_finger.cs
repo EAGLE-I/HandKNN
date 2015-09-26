@@ -123,9 +123,9 @@ namespace Leap_Extract.Data_Structure
         return mesg;
     }
 
-	public ds_phalanx[] getFingerParts() 
+	public List<ds_phalanx> getFingerParts() 
     {
-		return fingerParts; 
+        return fingerParts.ToList() ; 
 	}
 
         

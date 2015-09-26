@@ -23,10 +23,12 @@ namespace Leap_Extract
 
     public partial class frmControl : Form, ILeapEventDelegate
     {
-        
+
+        List<string> users = new List<string>();
+
         TextWriter myWriter;
         person currentPerson = new person();
-        person singlePerson = new person();
+        person singlePerson = new person("tempName","tempUname",100,'M');
 
         private Controller controller = new Controller();
         private LeapEventListener listener;
@@ -105,6 +107,7 @@ namespace Leap_Extract
                 {
                     String[] temp = csvRow;
                     String pName = temp[0];
+                    users.Add(pName);
                     String pUname = temp[1];
                     int pAge = Convert.ToInt32(temp[2]);
                     char pGender = Convert.ToChar(temp[3]);
@@ -235,6 +238,7 @@ namespace Leap_Extract
                     try
                     {
                         allPersons.Add(personFromCSV);
+
                     }
                     catch (Exception) { }
 
@@ -249,6 +253,9 @@ namespace Leap_Extract
             InitializeComponent();
 
             readCSV();
+
+            foreach (string s in users)
+                cmb_users.Items.Add(s);
         }
 
         delegate void LeapEventDelegate(string EventName);
@@ -690,8 +697,10 @@ namespace Leap_Extract
 
         
 
-        public void getFrameSinglePerson()
+        public person getShortScan()
         {
+            person tmpPerson = new person("tmpPerson", "tmpUname", 0, 'M');
+
             scanCount2++;
             decimal[] singleThumbMeasurements = new decimal[3];
             decimal[] singlePinkyMeasurements = new decimal[4];
@@ -708,8 +717,10 @@ namespace Leap_Extract
 
             }
 
-            Frame frame3 = controller.Frame();
+            while(tmpPerson.leftHand.numofUpdates < 200)
+            {
 
+            Frame frame3 = controller.Frame();
             foreach (Hand hand in frame3.Hands)
             {
 
@@ -746,14 +757,16 @@ namespace Leap_Extract
                         String bstringType = boneType.GetType().ToString();
                         Bone boneLength = finger.Bone(boneType);
 
+
                         switch (fingerID)
                         {
                             case 1:
                                 singleIndexMeasurements[countBones] = (decimal)boneLength.Length;
+                                   
                                 break;
                             case 2:
-                                singleMiddleMeasurements[countBones] = (decimal)boneLength.Length;
-                                break;
+                                    singleMiddleMeasurements[countBones] = (decimal)boneLength.Length;
+                                    break;
                             case 3:
                                 singleRing2Measurements[countBones] = (decimal)boneLength.Length;
                                 break;
@@ -777,12 +790,25 @@ namespace Leap_Extract
 
             } // End Hands for
 
-            try
+            bool emptyValue = false;
+
+            foreach (decimal d in singleThumbMeasurements)
+                if (d.Equals(0)) emptyValue = true;
+            foreach (decimal d in singleIndexMeasurements)
+                if (d.Equals(0)) emptyValue = true;
+            foreach (decimal d in singleMiddleMeasurements)
+                if (d.Equals(0)) emptyValue = true;
+            foreach (decimal d in singleRing2Measurements)
+                if (d.Equals(0)) emptyValue = true;
+            foreach (decimal d in singlePinkyMeasurements)
+                if (d.Equals(0)) emptyValue = true;
+
+            if (!emptyValue)
             {
-                singlePerson.leftHand.UpdateHandMeasurements(singleThumbMeasurements, singleIndexMeasurements, singleMiddleMeasurements, singleRing2Measurements, singlePinkyMeasurements);
+                tmpPerson.leftHand.UpdateHandMeasurements(singleThumbMeasurements, singleIndexMeasurements, singleMiddleMeasurements, singleRing2Measurements, singlePinkyMeasurements);
             }
-            catch (Exception t) { Console.WriteLine(t.Message); }
-            
+                }
+            return tmpPerson; 
         }
 
         int scanCount2;
@@ -811,28 +837,58 @@ namespace Leap_Extract
                 }
                 else
                 {
-                    getFrameSinglePerson();
-                    
-                    try
-                    {
+
+                    person newPerson = getShortScan();
+
                         guessCount++;
                         scanHand = new K_NN();
 
-                        knnList = scanHand.getNearestNeighbors(singlePerson, allPersons);
+                        knnList = scanHand.getNearestNeighbors(newPerson, allPersons);
 
                         txtDisplay.AppendText("Guess number: " + Convert.ToString(guessCount) + Environment.NewLine);
                         txtDisplay.AppendText("The Nearest Neighbour is: " + knnList[0].getName() + Environment.NewLine);
                         txtDisplay.AppendText("The Second Nearest Neighbour is: " + knnList[1].getName() + Environment.NewLine);
                         txtDisplay.AppendText("The Third Nearest Neighbour is: " + knnList[2].getName() + Environment.NewLine + Environment.NewLine);
+
+
                         
-
-                    }
-                    catch (Exception h) { Console.WriteLine(h.ToString()); }
-
-                    Thread.Sleep(3000);
+                    Thread.Sleep(1000);
+                    txtDisplay.Clear();
+                    txtDisplay.Update();
                 }
             }
         
+        }
+
+        private void cmb_users_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string name = cmb_users.SelectedItem.ToString();
+            if (name == "")
+            {
+                txtDisplay.Clear();
+            }
+            else try
+                {
+
+                    foreach (person personItem in allPersons)
+                    {
+                        if (personItem.getName() == name)
+                        {
+                            txtDisplay.AppendText("Name: " + name + Environment.NewLine);
+                            txtDisplay.AppendText("Username: " + personItem.getUserName() + Environment.NewLine);
+                            txtDisplay.AppendText("Age: " + Convert.ToString(personItem.getAge()) + Environment.NewLine);
+                            txtDisplay.AppendText("Gender: " + Convert.ToString(personItem.getGender()) + Environment.NewLine + Environment.NewLine);
+
+                            txtDisplay.AppendText("Measurements: " + Environment.NewLine + personItem.leftHand.myToString() + Environment.NewLine);
+
+                            break;
+                        }
+                    }
+                }
+                catch (Exception t)
+                {
+                    Console.WriteLine(t.ToString());
+                }
         }
 
  }

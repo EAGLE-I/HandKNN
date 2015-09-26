@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblDisplay = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cmb_users = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -44,7 +45,7 @@
             this.panel1.Controls.Add(this.txtDisplay);
             this.panel1.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(15, 82);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(697, 256);
             this.panel1.TabIndex = 7;
@@ -53,7 +54,7 @@
             // 
             this.txtDisplay.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.txtDisplay.Location = new System.Drawing.Point(15, 13);
-            this.txtDisplay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDisplay.Margin = new System.Windows.Forms.Padding(4);
             this.txtDisplay.Multiline = true;
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -77,7 +78,7 @@
             // 
             this.btnCreateUser.Font = new System.Drawing.Font("Georgia", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreateUser.Location = new System.Drawing.Point(13, 350);
-            this.btnCreateUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCreateUser.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreateUser.Name = "btnCreateUser";
             this.btnCreateUser.Size = new System.Drawing.Size(123, 54);
             this.btnCreateUser.TabIndex = 8;
@@ -89,7 +90,7 @@
             // 
             this.btnExit.Font = new System.Drawing.Font("Georgia", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.Location = new System.Drawing.Point(12, 412);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(251, 42);
             this.btnExit.TabIndex = 10;
@@ -101,9 +102,9 @@
             // 
             this.txtName.Font = new System.Drawing.Font("Georgia", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(12, 44);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtName.Margin = new System.Windows.Forms.Padding(4);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(311, 29);
+            this.txtName.Size = new System.Drawing.Size(187, 29);
             this.txtName.TabIndex = 17;
             this.txtName.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -180,6 +181,17 @@
             this.panel2.TabIndex = 25;
             this.panel2.Visible = false;
             // 
+            // cmb_users
+            // 
+            this.cmb_users.FormattingEnabled = true;
+            this.cmb_users.Location = new System.Drawing.Point(206, 43);
+            this.cmb_users.MaxDropDownItems = 5;
+            this.cmb_users.Name = "cmb_users";
+            this.cmb_users.Size = new System.Drawing.Size(121, 26);
+            this.cmb_users.Sorted = true;
+            this.cmb_users.TabIndex = 19;
+            this.cmb_users.SelectedIndexChanged += new System.EventHandler(this.cmb_users_SelectedIndexChanged);
+            // 
             // frmControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -188,6 +200,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(725, 520);
+            this.Controls.Add(this.cmb_users);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
@@ -198,7 +211,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Leap Reader";
@@ -228,6 +241,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDisplay;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox cmb_users;
 
     }
 }
