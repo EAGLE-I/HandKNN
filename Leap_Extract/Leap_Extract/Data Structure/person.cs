@@ -22,7 +22,9 @@ namespace Leap_Extract.Data_Structure
     
     public class person
     {
+        public int knn_score = 0;
         public ds_hand leftHand;
+
         //public ds_hand rightHand;
         string nameSur;
         string username;
@@ -39,7 +41,7 @@ namespace Leap_Extract.Data_Structure
 
         public person(string name, string uname, int age, char gender)
         {
-            leftHand = new ds_hand(true);
+            leftHand = new ds_hand(true,this);
             //rightHand = new ds_hand(false);
 
             this.nameSur = name;

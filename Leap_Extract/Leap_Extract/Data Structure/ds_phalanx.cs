@@ -22,7 +22,7 @@ namespace Leap_Extract.Data_Structure
    
    public class ds_phalanx 
    {
-
+        public person owner;
 	    public decimal min,max,avg;
         public decimal sum, trimmedAverage, totalTrimmedAverage;
         public decimal variance, standardDeviation, standardDeviationSum;
@@ -34,8 +34,9 @@ namespace Leap_Extract.Data_Structure
        // as well as 20% of the top of the set.
         public decimal[] twentyMeasurements = new decimal[20];
       
-	    public ds_phalanx()
+	    public ds_phalanx(person owner)
 	    {
+            this.owner = owner;
 		    this.measurements = 0;
 		    this.sum = 0;
             this.trimmedAverage = 0;
@@ -46,6 +47,7 @@ namespace Leap_Extract.Data_Structure
 		    this.max = 0;
             this.variance = 0;
             this.standardDeviation = 0;
+            this.uniqueID = Guid.NewGuid().ToString();
 	    }
 
         public void UpdateMeasurement(decimal measurement)

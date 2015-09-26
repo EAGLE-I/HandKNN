@@ -23,6 +23,7 @@ namespace Leap_Extract.Data_Structure
     public class ds_finger
     {
 
+    public person owner;
 	String fingerName;
 	ds_phalanx[] fingerParts;
 	int numOfParts;
@@ -34,14 +35,15 @@ namespace Leap_Extract.Data_Structure
 		
 	}
 	
-	public ds_finger(String fingerName, int numParts)
+	public ds_finger(String fingerName, int numParts, person owner)
 	{
+        this.owner = owner;
 			this.setFingerName(fingerName);
 			this.numOfParts = numParts;
 			this.fingerParts = new ds_phalanx[this.numOfParts];
          
 			for(int k = 0; k < fingerParts.Length; k++)
-				fingerParts[k] = new ds_phalanx();
+				fingerParts[k] = new ds_phalanx(owner);
 	}
 
     public void updateFinger(decimal[] measurements)

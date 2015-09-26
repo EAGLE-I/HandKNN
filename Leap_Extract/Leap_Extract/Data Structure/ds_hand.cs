@@ -22,12 +22,13 @@ namespace Leap_Extract.Data_Structure
     
     public class ds_hand
     {
-
+        public person owner;
 	    ds_finger[] fingers;
 	    bool iLeft;
 	
-	    public ds_hand (bool left)
+	    public ds_hand (bool left, person owner)
 	    {
+            this.owner = owner;
 		    String prefix;
 		
 		    if(left)
@@ -35,11 +36,11 @@ namespace Leap_Extract.Data_Structure
 			    this.setLeft(true);
 			    prefix = "Left";
 			    fingers = new ds_finger[5];
-			    fingers[0] = new ds_finger(prefix + "Thumb",3);
-			    fingers[1] = new ds_finger(prefix + "Index",4);
-			    fingers[2] = new ds_finger(prefix + "Middle",4);
-			    fingers[3] = new ds_finger(prefix + "Ring",4);
-			    fingers[4] = new ds_finger(prefix + "Pinky",4);
+			    fingers[0] = new ds_finger(prefix + "Thumb",3,owner);
+                fingers[1] = new ds_finger(prefix + "Index", 4, owner);
+                fingers[2] = new ds_finger(prefix + "Middle", 4, owner);
+                fingers[3] = new ds_finger(prefix + "Ring", 4, owner);
+                fingers[4] = new ds_finger(prefix + "Pinky", 4, owner);
 
 		    }
 		    else
@@ -47,11 +48,11 @@ namespace Leap_Extract.Data_Structure
                 this.setLeft(false);
 			    prefix = "Right";
 			    fingers = new ds_finger[5];
-			    fingers[0] = new ds_finger(prefix + "Thumb",3);
-			    fingers[1] = new ds_finger(prefix + "Index",4);
-			    fingers[2] = new ds_finger(prefix + "Middle",4);
-			    fingers[3] = new ds_finger(prefix + "Ring",4);
-			    fingers[4] = new ds_finger(prefix + "Pinky",4);
+                fingers[0] = new ds_finger(prefix + "Thumb", 3, owner);
+                fingers[1] = new ds_finger(prefix + "Index", 4, owner);
+                fingers[2] = new ds_finger(prefix + "Middle", 4, owner);
+                fingers[3] = new ds_finger(prefix + "Ring", 4, owner);
+                fingers[4] = new ds_finger(prefix + "Pinky", 4, owner);
 		    }
 	    }
 		
