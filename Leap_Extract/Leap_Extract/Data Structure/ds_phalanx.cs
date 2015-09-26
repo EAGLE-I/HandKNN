@@ -166,8 +166,16 @@ namespace Leap_Extract.Data_Structure
 
         public decimal getTrimmedAverage()
         {
-            return totalTrimmedAverage/countTrimmedAverages;
+            if (countTrimmedAverages > 0)
+                return totalTrimmedAverage / countTrimmedAverages;
+            else
+                return 0;
         }
+
+       public decimal compareTrimmedAverage(decimal valueToCompare)
+       {
+           return Math.Abs(valueToCompare - getTrimmedAverage());
+       }
 
         public decimal getMin()
         {

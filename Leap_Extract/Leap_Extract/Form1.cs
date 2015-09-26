@@ -109,12 +109,12 @@ namespace Leap_Extract
                     int pAge = Convert.ToInt32(temp[2]);
                     char pGender = Convert.ToChar(temp[3]);
 
-                    int counter = 1;
-                    foreach (String item in temp)
-                    {
-                        txtDisplay.AppendText(Convert.ToString(counter) + ": "  + item + Environment.NewLine);
-                        counter++;
-                    }
+                    //int counter = 1;
+                    //foreach (String item in temp)
+                    //{
+                    //    txtDisplay.AppendText(Convert.ToString(counter) + ": "  + item + Environment.NewLine);
+                    //    counter++;
+                    //}
 
                     try
                     {
@@ -697,7 +697,16 @@ namespace Leap_Extract
             decimal[] singlePinkyMeasurements = new decimal[4];
             decimal[] singleIndexMeasurements = new decimal[4];
             decimal[] singleMiddleMeasurements = new decimal[4];
-            decimal[] singleRingMeasurements = new decimal[4];
+            decimal[] singleRing2Measurements = new decimal[4];
+
+            for (int m = 0; m < 4; m++)
+            {
+                singleIndexMeasurements[m] = 0;
+                singleMiddleMeasurements[m] = 0;
+                singleRing2Measurements[m] = 0;
+                singlePinkyMeasurements[m] = 0;
+
+            }
 
             Frame frame3 = controller.Frame();
 
@@ -746,7 +755,7 @@ namespace Leap_Extract
                                 singleMiddleMeasurements[countBones] = (decimal)boneLength.Length;
                                 break;
                             case 3:
-                                singleRingMeasurements[countBones] = (decimal)boneLength.Length;
+                                singleRing2Measurements[countBones] = (decimal)boneLength.Length;
                                 break;
                             case 4:
                                 singlePinkyMeasurements[countBones] = (decimal)boneLength.Length;
@@ -768,7 +777,12 @@ namespace Leap_Extract
 
             } // End Hands for
 
-            singlePerson.leftHand.UpdateHandMeasurements(singleThumbMeasurements, singleIndexMeasurements, singleMiddleMeasurements, singleRingMeasurements, singlePinkyMeasurements);
+            try
+            {
+                singlePerson.leftHand.UpdateHandMeasurements(singleThumbMeasurements, singleIndexMeasurements, singleMiddleMeasurements, singleRing2Measurements, singlePinkyMeasurements);
+            }
+            catch (Exception t) { Console.WriteLine(t.Message); }
+            
         }
 
         int scanCount2;
@@ -779,13 +793,14 @@ namespace Leap_Extract
             long timeElapsed2;
             bool flag4 = true;
             scanCount2 = 0;
+            int guessCount = 0;
 
             K_NN scanHand;
+            txtDisplay.Clear();
 
             while (flag4)
             {
-
-                timeElapsed2 = CurrentTimeMillis() - startTime2;
+                timeElapsed2 = CurrentTimeMillis() - startTime2;   
 
                 if (timeElapsed2 > 60000)
                 {
@@ -797,15 +812,19 @@ namespace Leap_Extract
                 else
                 {
                     getFrameSinglePerson();
+                    
                     try
                     {
+                        guessCount++;
                         scanHand = new K_NN();
+
                         knnList = scanHand.getNearestNeighbors(singlePerson, allPersons);
+
+                        txtDisplay.AppendText("Guess number: " + Convert.ToString(guessCount) + Environment.NewLine);
+                        txtDisplay.AppendText("The Nearest Neighbour is: " + knnList[0].getName() + Environment.NewLine);
+                        txtDisplay.AppendText("The Second Nearest Neighbour is: " + knnList[1].getName() + Environment.NewLine);
+                        txtDisplay.AppendText("The Third Nearest Neighbour is: " + knnList[2].getName() + Environment.NewLine + Environment.NewLine);
                         
-                        txtDisplay.Clear();
-                        txtDisplay.AppendText(knnList[0].getName());
-                        txtDisplay.AppendText(knnList[1].getName());
-                        txtDisplay.AppendText(knnList[2].getName());
 
                     }
                     catch (Exception h) { Console.WriteLine(h.ToString()); }

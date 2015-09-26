@@ -36,7 +36,7 @@ namespace Leap_Extract.Data_Structure
             this.nameSur = "";
             this.username = "";
             this.age = 0;
-            this.gender = 'M';
+            this.gender = ' ';
         }
 
         public person(string name, string uname, int age, char gender)
