@@ -81,36 +81,36 @@ namespace Leap_Extract.Data_Structure
         }
 
 
-       public void calculateStandardDeviation(decimal zMeasure)
-        {
-            decimal temp = zMeasure - avg;
+       //public void calculateStandardDeviation(decimal zMeasure)
+       // {
+       //     decimal temp = zMeasure - avg;
 
-            decimal standardDeviationPart = Convert.ToDecimal(Math.Pow((double)temp, 2));
+       //     decimal standardDeviationPart = Convert.ToDecimal(Math.Pow((double)temp, 2));
 
-            standardDeviationSum += standardDeviationPart;
+       //     standardDeviationSum += standardDeviationPart;
 
-            standardDeviation = standardDeviationSum/measurements;
+       //     standardDeviation = standardDeviationSum/measurements;
             
-        }
+       // }
 
-       public decimal getStandardDeviation()
-       {
-           return Convert.ToDecimal(Math.Sqrt((double)standardDeviation));
-       }
+       //public decimal getStandardDeviation()
+       //{
+       //    return Convert.ToDecimal(Math.Sqrt((double)standardDeviation));
+       //}
 
-       public void calculateVariance(decimal xMeasure)
-       {
-           decimal temp = xMeasure - avg;
+       //public void calculateVariance(decimal xMeasure)
+       //{
+       //    decimal temp = xMeasure - avg;
            
-           decimal variancePart = Convert.ToDecimal(Math.Pow((double)temp, 2));
+       //    decimal variancePart = Convert.ToDecimal(Math.Pow((double)temp, 2));
 
-           variance += variancePart;
-       }
+       //    variance += variancePart;
+       //}
 
-       public decimal getVariance()
-       {
-           return variance / measurements;
-       }
+       //public decimal getVariance()
+       //{
+       //    return variance / measurements;
+       //}
 
 
         public void calculateTrimmedAverage(decimal theMeasurement)
@@ -187,7 +187,7 @@ namespace Leap_Extract.Data_Structure
 
 	    public String toString(String prefix)
 	    {
-            decimal getV = getVariance(); 
+            //decimal getV = getVariance(); 
             return "TYPE " + prefix + " --> Trimmed Avg: " + String.Format("{0:#,#.#####}",trimmedAverage) + Environment.NewLine +
                                             "Avg: " + String.Format("{0:#,#.#####}", avg) + Environment.NewLine +
                                             "Min: " + String.Format("{0:#,#.#####}", min) + Environment.NewLine +
@@ -199,7 +199,7 @@ namespace Leap_Extract.Data_Structure
            List<String> mesg = new List<String>();
 
            decimal getTA = this.getTrimmedAverage();
-           decimal getV = getVariance(); 
+           //decimal getV = getVariance(); 
 
            String boneType = "TYPE: " + csvPrefix;
 

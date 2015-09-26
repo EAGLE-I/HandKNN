@@ -25,8 +25,8 @@ namespace Leap_Extract
     {
         
         TextWriter myWriter;
-        person currentPerson;
-        person singlePerson;
+        person currentPerson = new person();
+        person singlePerson = new person();
 
         private Controller controller = new Controller();
         private LeapEventListener listener;
