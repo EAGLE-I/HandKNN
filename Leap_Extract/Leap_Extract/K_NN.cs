@@ -185,10 +185,43 @@ namespace Leap_Extract
 
                 List<person> outList = listIn.OrderByDescending(o => o.knn_score).ToList();
 
+                int firstScore = 0, secondScore = 0, thirdScore = 0, total = 0;
 
-                for (int k = 0; k < 3; k++)
-                    msg += outList[k].getName() + "\t" + outList[k].knn_score + Environment.NewLine;
+                try
+                {
+                    firstScore = outList[0].knn_score;
+                    secondScore = outList[1].knn_score;
+                    thirdScore = outList[2].knn_score;
+                    total = firstScore + secondScore + thirdScore;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
 
+                double persentageOne = 0, persentageTwo = 0, persentageThree = 0;
+                try
+                {
+                    persentageOne = (double)firstScore / total * 100;
+                    persentageTwo = (double)secondScore / total * 100;
+                    persentageThree = (double)thirdScore / total * 100;
+                }
+                catch (Exception i)
+                {
+                    Console.WriteLine(i.Message);
+                }
+
+
+                msg += outList[0].getName() + Environment.NewLine + 
+                        "\t K-NN Score" + "\t Persentage score" + Environment.NewLine + 
+                        "\t" + outList[0].knn_score + "\t\t" + String.Format("{0:#,#.##}", persentageOne) + "%" + Environment.NewLine;
+                msg += outList[1].getName() + Environment.NewLine + 
+                        "\t K-NN Score" + "\t Persentage score" + Environment.NewLine + 
+                        "\t" + outList[1].knn_score + "\t\t" + String.Format("{0:#,#.##}", persentageTwo) + "%" + Environment.NewLine;
+                msg += outList[2].getName() + Environment.NewLine + 
+                        "\t K-NN Score" + "\t Persentage score" + Environment.NewLine + 
+                        "\t" + outList[2].knn_score + "\t\t" + String.Format("{0:#,#.##}", persentageThree) + "%" + Environment.NewLine;
+                
                 return outList;
         }
 

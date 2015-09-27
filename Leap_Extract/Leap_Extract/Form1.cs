@@ -531,8 +531,11 @@ namespace Leap_Extract
                 
             }
 
-            
-
+            foreach (string h in users)
+            {
+                cmb_users.Items.Add(h);
+                cmbTwo.Items.Add(h);
+            }
 
         }
 
